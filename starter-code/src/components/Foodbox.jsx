@@ -3,37 +3,54 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 
 export default class Foodbox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantity: 1
+    };
+    this.handleQuantity = this.handleQuantity.bind(this);
+  }
+
+  handleQuantity(event) {
+    this.setState({
+      quantity: event.target.value
+    });
+    console.log("Updating...");
+  }
+
+  // choice() {}
+
   render() {
-    console.log(this.props.food);
+    // console.log(this.props.food);
     const food = this.props.food;
     return (
-      <div className="box">
-        <article className="media">
-          <div className="media-left">
-            <figure className="image is-64x64">
-              <img src={food.image} height="80" />
-            </figure>
-          </div>
-          <div className="media-content">
-            <div className="content">
-              <p>
-                <strong>{food.name}</strong> <br />
-                <small>{food.calories}</small>
-              </p>
-            </div>
-          </div>
-          <div className="media-right">
-            <div className="field has-addons">
-              <div className="control">
-                <input className="input" type="number" value={food.quantity} />
-              </div>
-              <div className="control">
-                <Button className="button is-info">+</Button>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
+      <tbody>
+        <tr>
+          <td>
+            <img src={food.image} height="80" alt={food.name} />
+          </td>
+          <td>
+            <strong>{food.name}</strong>
+            <br></br>
+            <small>{food.calories} Kcal</small>
+          </td>
+          <td>
+            <input
+              className="input"
+              type="number"
+              value={this.state.quantity}
+              onChange={this.handleQuantity}
+            />
+          </td>
+          <td>
+            <Button onClick={this.props.handleAddition}>+</Button>{" "}
+            {/* Retrieving from props */}
+          </td>
+        </tr>
+      </tbody>
     );
   }
 }
+
+//método
+// passar this.state.quantity & this.handle quantity

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import JSONfoods from "./foods.json";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 import Foodbox from "./components/Foodbox";
 
@@ -14,7 +14,6 @@ class App extends Component {
       foods: JSONfoods
     };
     // this.handleSearch = this.handleSearch.bind(this);
-    // this.handleQuantity = this.handleQuantity.bind(this);
   }
 
   // handleSearch(event) {
@@ -23,11 +22,12 @@ class App extends Component {
   //   });
   // }
 
-  // handleQuantity(event) {
-  //   this.setState({
-  //     quantity: event.target.value
-  //   });
-  // }
+  handleAddition(event) {
+    // this.setState({
+    //   quantity: event.target.value
+    // });
+    console.log(event);
+  }
 
   // get selectedFoods() {
   //   return this.state.foods.filter(food =>
@@ -36,12 +36,26 @@ class App extends Component {
   // }
 
   render() {
-    const foodbox = this.state.foodbox;
+    // const foodbox = this.state.foodbox;
     return (
       <Container>
-        {this.state.foods.map(food => (
-          <Foodbox food={food} />
-        ))}
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name (/Kcal)</th>
+              <th>Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          {this.state.foods.map(food => (
+            <Foodbox
+              food={food}
+              handleAddition={this.handleAddition} //passing into component Foodbox
+              key={food.name}
+            />
+          ))}
+        </Table>
       </Container>
     );
   }
